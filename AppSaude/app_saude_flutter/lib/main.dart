@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'login_page.dart';
 
 
 void main() {
@@ -16,28 +17,17 @@ class AppSaude extends StatelessWidget {
       title: appTitle,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text(appTitle),
+          title: 
+          
+          Image.asset('assets/images/ubrela.png', width: 200, height: 200,),
+          
         ),
-        body: const MyCustomForm(),
+        body: const LogIn(),
       ),
     );
   }
 }
 
-class MyCustomForm extends StatelessWidget {
-  const MyCustomForm({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return  Column(
-      
-      children:  [
-        Center(
-           child:Image.asset('assets/images/logo-corp.png', height: 128, width: 128),
-        ) ,
-      ],
-    );
-  }
-}
 
 
