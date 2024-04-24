@@ -18,7 +18,7 @@ class Home extends StatelessWidget {
           child: const SizedBox(
             width: 300,
             height: 100,
-            child: Text('A card that can be tapped'),
+            child: Text('CONSULTA'),
           ),
         ),
         ),
@@ -34,7 +34,23 @@ class Home extends StatelessWidget {
           child: const  SizedBox(
             width: 300,
             height: 100,
-            child: Text('A card that can be tapped'),
+            child: Text('HISTORICO'),
+          ),
+        ),
+        ),
+        
+      ),
+      Center(
+        child: Card(
+          clipBehavior: Clip.hardEdge,
+        child: InkWell(
+          onTap: () {
+            debugPrint('Card tapped.');
+          },
+          child: const  SizedBox(
+            width: 300,
+            height: 100,
+            child: Text('PERFIL'),
           ),
         ),
         ),
