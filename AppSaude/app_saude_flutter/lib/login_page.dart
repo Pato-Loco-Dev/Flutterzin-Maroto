@@ -1,14 +1,32 @@
 import 'package:flutter/material.dart';
 
 final _formKey = GlobalKey<FormState>();
-TextEditingController emailController = TextEditingController();
-TextEditingController passwordController = TextEditingController();
 
-class LogIn extends StatelessWidget {
+String username = 'admin123';
+String password = 'patoloco2345678';
+
+
+class LogIn extends StatefulWidget {
   const LogIn({super.key});
 
+  @override
+  State<LogIn> createState() => _LogInState();
+  
+}
 
 
+class _LogInState extends State<LogIn> {
+  TextEditingController userController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    userController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return  Column(
@@ -26,18 +44,35 @@ class LogIn extends StatelessWidget {
         ),
          Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-          child: TextField(
-              controller: emailController,
+          child: TextFormField(
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                return 'Insira o usuário!';
+                } else if (value != username) {
+                  return 'Usuário incorreto!';
+                }
+                return null;
+              },
+              controller: userController,
               decoration: const InputDecoration(
               border: OutlineInputBorder(),
               hintText: 'Digite seu usuario:',
             ),
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-          child: TextField(
-            decoration: InputDecoration(
+         Padding(
+          padding:  const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          child: TextFormField(
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Digite sua senha!';
+              } else if (value != password) {
+                return 'Senha incorreta!';
+              }
+              return null;
+            },
+            controller: passwordController,
+            decoration: const InputDecoration(
               border: OutlineInputBorder(),
               hintText: 'Digite sua Senha:',
             ),
