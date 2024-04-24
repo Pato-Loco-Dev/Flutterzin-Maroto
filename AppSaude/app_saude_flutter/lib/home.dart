@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'perfil.dart';
+import 'consultas.dart';
+import 'historico.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -13,7 +16,16 @@ class Home extends StatelessWidget {
         child: InkWell(
           splashColor: Colors.blue.withAlpha(30),
           onTap: () {
-            debugPrint('Card tapped.');
+            Navigator.push(context, MaterialPageRoute<void>(
+                builder: (BuildContext context) {
+                  return Scaffold(
+                    appBar: AppBar(
+                      title: Image.asset('assets/images/ubrela.png', width: 200, height: 200,),
+                    ),
+                    body: const Consultas(),
+                  );
+                },
+              ));
           },
           child: const SizedBox(
             width: 300,
@@ -29,7 +41,16 @@ class Home extends StatelessWidget {
           clipBehavior: Clip.hardEdge,
         child: InkWell(
           onTap: () {
-            debugPrint('Card tapped.');
+            Navigator.push(context, MaterialPageRoute<void>(
+                builder: (BuildContext context) {
+                  return Scaffold(
+                    appBar: AppBar(
+                      title: Image.asset('assets/images/ubrela.png', width: 200, height: 200,),
+                    ),
+                    body: const Home(),
+                  );
+                },
+              ));
           },
           child: const  SizedBox(
             width: 300,
@@ -45,7 +66,16 @@ class Home extends StatelessWidget {
           clipBehavior: Clip.hardEdge,
         child: InkWell(
           onTap: () {
-            debugPrint('Card tapped.');
+            Navigator.push(context, MaterialPageRoute<void>(
+                builder: (BuildContext context) {
+                  return Scaffold(
+                    appBar: AppBar(
+                      title: Image.asset('assets/images/ubrela.png', width: 200, height: 200,),
+                    ),
+                    body: const Home(),
+                  );
+                },
+              ));
           },
           child: const  SizedBox(
             width: 300,
@@ -54,13 +84,8 @@ class Home extends StatelessWidget {
           ),
         ),
         ),
-        
       )
-     ], 
-
-      
-
-
+     ],       
     );
       
   }
