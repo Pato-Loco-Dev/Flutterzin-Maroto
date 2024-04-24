@@ -5,20 +5,48 @@ class Home extends StatelessWidget {
   
   @override
    Widget build(BuildContext context) {
-    const appTitle = 'Umbrella Corp';
-    return MaterialApp(
-      
-      title: appTitle,
-      home: Scaffold(
-        appBar: AppBar(
-          title: 
-          
-          Image.asset('assets/images/ubrela.png', width: 200, height: 200,),
-          
+    return Column(
+     children: <Widget> [
+      Center(
+        child: Card(
+          clipBehavior: Clip.hardEdge,
+        child: InkWell(
+          splashColor: Colors.blue.withAlpha(30),
+          onTap: () {
+            debugPrint('Card tapped.');
+          },
+          child: const SizedBox(
+            width: 300,
+            height: 100,
+            child: Text('A card that can be tapped'),
+          ),
         ),
-        body: Image.asset('assets/images/ubrela.png', width: 200, height: 200,)
+        ),
+        
       ),
+       Center(
+        child: Card(
+          clipBehavior: Clip.hardEdge,
+        child: InkWell(
+          onTap: () {
+            debugPrint('Card tapped.');
+          },
+          child: const  SizedBox(
+            width: 300,
+            height: 100,
+            child: Text('A card that can be tapped'),
+          ),
+        ),
+        ),
+        
+      )
+     ], 
+
+      
+
+
     );
+      
   }
   
 }
