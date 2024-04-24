@@ -29,10 +29,10 @@ class _LogInState extends State<LogIn> {
   
   @override
   Widget build(BuildContext context) {
-    return  Column(
+    return  Form(
       key: _formKey,
-
-      crossAxisAlignment: CrossAxisAlignment.center,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
       
       children: <Widget> [
 
@@ -97,6 +97,8 @@ class _LogInState extends State<LogIn> {
                 ),
               )
       ],
+      ),
+      
     );
   }
 }
