@@ -22,7 +22,10 @@ class Home extends StatelessWidget {
                     appBar: AppBar(
                       title: Image.asset('assets/images/ubrela.png', width: 200, height: 200,),
                     ),
-                    body: const Consultas(),
+                    body: const Center(
+                      child:  Consultas(),
+                    ),
+                    
                   );
                 },
               ));
