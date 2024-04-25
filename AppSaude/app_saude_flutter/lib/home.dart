@@ -27,10 +27,15 @@ class Home extends StatelessWidget {
                 },
               ));
           },
-          child: const SizedBox(
+          child:SizedBox(
             width: 300,
             height: 100,
-            child: Text('CONSULTA'),
+            child: Column(
+              children: <Widget> [
+                Center(child: Image.asset('assets/images/Agendamento.png', width: 60, height: 60,)),
+                const Center(child: Text('Agendar Consulta'),)
+              ]
+            ),
           ),
         ),
         ),
@@ -47,15 +52,20 @@ class Home extends StatelessWidget {
                     appBar: AppBar(
                       title: Image.asset('assets/images/ubrela.png', width: 200, height: 200,),
                     ),
-                    body: const Home(),
+                    body: const Historico(),
                   );
                 },
               ));
           },
-          child: const  SizedBox(
+          child: SizedBox(
             width: 300,
             height: 100,
-            child: Text('HISTORICO'),
+            child: Column(
+              children: <Widget> [
+                Center(child: Image.asset('assets/images/Historico.png', width: 60, height: 60,)),
+                const Center(child: Text('Historico de Consultas'),)
+              ]
+            ),
           ),
         ),
         ),
@@ -72,15 +82,20 @@ class Home extends StatelessWidget {
                     appBar: AppBar(
                       title: Image.asset('assets/images/ubrela.png', width: 200, height: 200,),
                     ),
-                    body: const Home(),
+                    body: const Perfil(),
                   );
                 },
               ));
           },
-          child: const  SizedBox(
+          child:SizedBox(
             width: 300,
             height: 100,
-            child: Text('PERFIL'),
+             child: Column(
+              children: <Widget> [
+                Center(child: Image.asset('assets/images/Perfil.png', width: 60, height: 60,)),
+                const Center(child: Text('Perfil'),)
+              ]
+            ),
           ),
         ),
         ),
