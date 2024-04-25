@@ -16,12 +16,7 @@ class AppSaude extends StatelessWidget {
       
       title: appTitle,
       home: Scaffold(
-        appBar: AppBar(
-          title: 
-          
-          Image.asset('assets/images/ubrela.png', width: 200, height: 200,),
-          
-        ),
+        appBar: AppBar(),
         body: const LogIn(),
       ),
     );

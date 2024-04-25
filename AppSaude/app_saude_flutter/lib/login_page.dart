@@ -1,23 +1,27 @@
+import 'home.dart';
 import 'package:flutter/material.dart';
 
-final _formKey = GlobalKey<FormState>();
 
-String username = 'admin123';
-String password = 'patoloco2345678';
+
+
 
 
 class LogIn extends StatefulWidget {
   const LogIn({super.key});
 
   @override
-  State<LogIn> createState() => _LogInState();
-  
+  LogInState createState() {
+    return LogInState();
+  }
 }
 
 
-class _LogInState extends State<LogIn> {
+class LogInState extends State<LogIn> {
   TextEditingController userController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  String username = 'admin123';
+  String password = 'patoloco2345678';
 
   @override
   void dispose() {
@@ -85,14 +89,19 @@ class _LogInState extends State<LogIn> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        // Navigate the user to the Home page
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Please fill input')),
-                        );
-                      }
+                        Navigator.push(context, MaterialPageRoute<void>(
+                builder: (BuildContext context) {
+                  return Scaffold(
+                    appBar: AppBar(
+                      title: Image.asset('assets/images/ubrela.png', width: 200, height: 200,),
+                    ),
+                    body: const Home(),
+                  );
+                },
+              ));
+                      } 
                     },
-                    child: const Text('Submit'),
+                    child: const Text('Entrar'),
                   ),
                 ),
               )
