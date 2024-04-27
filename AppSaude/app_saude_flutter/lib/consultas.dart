@@ -7,21 +7,21 @@ const List<String> horarioManha = <String>['08:30', '09:00', '09:30', '10:00', '
 
 
 class Consultas extends StatefulWidget{
-  const Consultas ({super.key});
-
   @override
   ConsultasState createState() {
     return ConsultasState();
   }
+
+  const Consultas ({super.key});
 }
 
 class ConsultasState extends State<Consultas> {
-
+  String dropdownValue = horarioManha.first;
+  TextEditingController motivoConsController = TextEditingController();
   String motivoConsulta = '';
   String nmPaciente = '';
-
-  TextEditingController motivoConsController = TextEditingController();
   TextEditingController nmPacienteController = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -32,7 +32,6 @@ class ConsultasState extends State<Consultas> {
     
     super.dispose();
   }
-  String dropdownValue = horarioManha.first;
 
   @override
   Widget build(BuildContext context){
@@ -77,10 +76,26 @@ class ConsultasState extends State<Consultas> {
               hintText: 'Digite o nome do paciente:',
             ),
           ),
-            ),
-
-            
+        ),
           ),
+          Padding(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16.0),
+          child: DropdownMenu<String>(
+                  label: const Text('Horário da consulta:'),
+                  menuHeight: 300,
+                  initialSelection: horarioManha.first,
+                  onSelected: (String? value) {
+        
+        setState(() {
+          dropdownValue = value!;
+        });
+      },
+      dropdownMenuEntries: horarioManha.map<DropdownMenuEntry<String>>((String value) {
+        return DropdownMenuEntry<String>(value: value, label: value);
+      }).toList(),
+    ),
+          
+          ),
+
           Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 8, vertical: 16.0),
@@ -100,8 +115,4 @@ class ConsultasState extends State<Consultas> {
       ),
     );
   }
-
-  
-
-
 }
