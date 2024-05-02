@@ -61,6 +61,7 @@ class LogInState extends State<LogIn> {
               decoration: const InputDecoration(
               border: OutlineInputBorder(),
               hintText: 'Digite seu usuario:',
+              label: Text('Usuário:')
             ),
           ),
         ),
@@ -79,6 +80,7 @@ class LogInState extends State<LogIn> {
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
               hintText: 'Digite sua Senha:',
+              label: Text('Senha:')
             ),
           ),
         ),
