@@ -18,9 +18,10 @@ class Consultas extends StatefulWidget{
 class ConsultasState extends State<Consultas> {
   String dropdownValue = horarioManha.first;
   TextEditingController motivoConsController = TextEditingController();
+  TextEditingController nmPacienteController = TextEditingController();
+  TextEditingController dataController = TextEditingController();
   String motivoConsulta = '';
   String nmPaciente = '';
-  TextEditingController nmPacienteController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -110,9 +111,51 @@ class ConsultasState extends State<Consultas> {
                     child: const Text('Agendar consulta', style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)) ),
                   ),
                 ),
-              )
+              ),
+          Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16.0),
+                child: Center(
+                  child: TextField(
+                    controller: dataController,
+                    decoration: const InputDecoration(
+                      labelText: 'Data da consulta',
+                      filled: true,
+                      prefixIcon: Icon(Icons.calendar_today),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide.none
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue)
+                      )
+
+                    ),
+                    readOnly: true,
+                    onTap: (){
+                      _selecionaData();
+                    },
+                  ),
+                ),
+              
+                )
         ]
       ),
     );
+  }
+
+  Future<void> _selecionaData() async {
+
+    DateTime? dataSelecionada = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100)
+      );
+
+    if (dataSelecionada != null) {
+      setState(() {
+        dataController.text = dataSelecionada.toString().split(" ")[0];
+      });
+    }
+
   }
 }
