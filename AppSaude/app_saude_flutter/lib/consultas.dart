@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter/material.dart';
 
 const List<String> horarioManha = <String>['08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30'];

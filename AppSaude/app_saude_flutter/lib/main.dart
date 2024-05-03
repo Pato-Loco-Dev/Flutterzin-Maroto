@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'login_page.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 
 void main() {
@@ -19,6 +20,12 @@ class AppSaude extends StatelessWidget {
         appBar: AppBar(),
         body: const LogIn(),
       ),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('pt'),
+      ],
     );
   }
 }
