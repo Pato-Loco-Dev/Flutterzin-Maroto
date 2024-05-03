@@ -28,6 +28,8 @@ class ConsultasState extends State<Consultas> {
     // Clean up the controller when the widget is disposed.
     motivoConsController.dispose();
     nmPacienteController.dispose();
+    dataController.dispose();
+
     
     super.dispose();
   }
@@ -152,7 +154,9 @@ class ConsultasState extends State<Consultas> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         
-                      } 
+                      } else {
+                        
+                      }
                     },
                     style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 255, 0, 0)),
                     child: const Text('Agendar consulta', style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)) ),
