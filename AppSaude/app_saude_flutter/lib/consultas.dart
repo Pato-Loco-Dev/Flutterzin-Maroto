@@ -153,10 +153,10 @@ class ConsultasState extends State<Consultas> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        
-                      } else {
-                        
-                      }
+                        nmPacienteController.clear();
+                        motivoConsController.clear();
+                        dataController.clear();
+                      } 
                     },
                     style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 255, 0, 0)),
                     child: const Text('Agendar consulta', style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)) ),
