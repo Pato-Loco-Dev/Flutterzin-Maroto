@@ -1,3 +1,4 @@
+import 'package:app_saude_flutter/management.dart';
 import 'package:flutter/material.dart';
 
 const List<String> horarioManha = <String>['08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30'];
@@ -153,9 +154,8 @@ class ConsultasState extends State<Consultas> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        nmPacienteController.clear();
-                        motivoConsController.clear();
-                        dataController.clear();
+                        cadastrarPaciente();
+                        
                       } 
                     },
                     style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 255, 0, 0)),
@@ -169,3 +169,5 @@ class ConsultasState extends State<Consultas> {
     );
   }
 }
+
+
