@@ -1,28 +1,13 @@
-import 'package:mysql_client/mysql_client.dart';
-import 'dart:io';
-import 'dart:async';
-import 'package:app_saude_flutter/consultas.dart';
+import 'package:http/http.dart' as http;
 
-Future<void> cadastrarPaciente() async {
-  ConsultasState consultas =  ConsultasState();
+Future<void> fetchUserData() async {
+  final response = await http.get(Uri.parse('http://localhost:8080/veiculos/veiculos-a-venda'));
 
-  final conn = await MySQLConnection.createConnection(
-      host: "localhost", 
-      port: 3306, 
-      userName: "root", 
-      password: "va34q4tk", 
-      databaseName: "BancoSQL", 
-    );
-await conn.connect();
-
-if(conn.connected){
-  var result = await conn.execute("INSERT INTO CONSULTAS (MOTIVO_CONSULTA, DATA_CONSULTA, HORARIO, PACIENTE) VALUES (:motivoConsulta, :dataConsulta, :horario, :paciente)",
-    {
-      "motivoConsulta": consultas.motivoConsulta,
-      "dataConsulta": consultas.dataConsulta,
-      "horario": consultas.dropdownValue,
-      "paciente": consultas.nmPaciente
-    },);
-  
+  if (response.statusCode == 200) {
+    // Se a solicitação for bem-sucedida, você pode processar os dados aqui
+    print('Dados recebidos: ${response.body}');
+  } else {
+    // Se a solicitação falhar, lide com o erro aqui
+    print('Falha na solicitação: ${response.statusCode}');
   }
 }
