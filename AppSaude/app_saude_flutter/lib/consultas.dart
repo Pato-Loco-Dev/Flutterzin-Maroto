@@ -154,7 +154,7 @@ class ConsultasState extends State<Consultas> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        fetchUserData();
+                        cadastrarPaciente();
                         
                       } 
                     },
