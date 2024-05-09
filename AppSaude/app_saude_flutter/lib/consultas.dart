@@ -123,8 +123,8 @@ class ConsultasState extends State<Consultas> {
                     readOnly: true,
                     onTap: (){
                       _selecionaData();
-
                     },
+                    
                   ),
                 ),
                 ),
@@ -155,8 +155,7 @@ class ConsultasState extends State<Consultas> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        addConsulta(
-                          
+                        addConsulta(motivoConsulta, nmPaciente, dataConsulta, dropdownValue
                         );
                         
                       } 

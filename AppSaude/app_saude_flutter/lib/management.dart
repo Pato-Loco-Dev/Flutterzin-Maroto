@@ -30,23 +30,23 @@ Future<void> listarPacientes() async {
   }
 }
 
-Future<void> addConsulta() async {
+Future<void> addConsulta(String motivoConsulta, String codPaciente, String dataConsulta, String dropdownValue) async {
 
   ConsultasState consulta =  ConsultasState();
 
 
-  String motivoConsulta = consulta.motivoConsulta;
-  String codPaciente = consulta.nmPaciente;
-  String dataConsulta = consulta.dataController.text;
-  String horario = consulta.dropdownValue;
+  String motivoConsultaRequest = motivoConsulta;
+  String codPacienteRequest = codPaciente;
+  String dataConsultaRequest = dataConsulta;
+  String horarioRequest = dropdownValue;
 
   var url = Uri.parse('http://localhost:8080/consultas');
   var response = await http.post(url,  headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',}, body: jsonEncode( <String, String>{
-    'motivoConsulta': motivoConsulta,
-    'dataConsulta': dataConsulta,
-    'horarioConsulta': horario,
-    'codPaciente': codPaciente
+    'motivoConsulta': motivoConsultaRequest,
+    'dataConsulta': dataConsultaRequest,
+    'horarioConsulta': horarioRequest,
+    'codPaciente': codPacienteRequest
     }));
   
   if (response.statusCode == 200) {
@@ -54,7 +54,7 @@ Future<void> addConsulta() async {
     print('Response: ${response.body}');
   } else {
     // Se a requisição não for bem-sucedida, lide com o erro aqui.
-    print(dataConsulta
+    print(dataConsultaRequest
     );
   }
 }
