@@ -94,7 +94,18 @@ class LogInState extends State<LogIn> {
                     ));
                   }
                 },
-                child: const Text('Entrar'),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                      Color.fromRGBO(255, 0, 0, 1)),
+                ),
+                child: Text(
+                  'Entrar',
+                  style: TextStyle(
+                    color: Colors.white, // Definindo a cor do texto como branco
+                    backgroundColor: Colors
+                        .transparent, // Definindo o fundo do texto como transparente
+                  ),
+                ),
               ),
             ),
           )
