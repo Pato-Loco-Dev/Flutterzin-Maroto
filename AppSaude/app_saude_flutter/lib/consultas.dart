@@ -123,8 +123,8 @@ class ConsultasState extends State<Consultas> {
                     readOnly: true,
                     onTap: (){
                       _selecionaData();
-
                     },
+                    
                   ),
                 ),
                 ),
@@ -155,14 +155,27 @@ class ConsultasState extends State<Consultas> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        addConsulta(
-                          
+                        addConsulta(motivoConsulta, nmPaciente, dataConsulta, dropdownValue
                         );
+                        listarConsultas();
                         
                       } 
                     },
                     style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 255, 0, 0)),
                     child: const Text('Agendar consulta', style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)) ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16.0),
+                child: Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      listarConsultas(); 
+                    },
+                    style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 255, 0, 0)),
+                    child: const Text('Ver consultas ', style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)) ),
                   ),
                 ),
               ),
