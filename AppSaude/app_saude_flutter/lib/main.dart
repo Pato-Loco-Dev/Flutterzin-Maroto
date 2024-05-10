@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'login_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-
 void main() {
   runApp(const AppSaude());
 }
@@ -14,7 +13,6 @@ class AppSaude extends StatelessWidget {
   Widget build(BuildContext context) {
     const appTitle = 'Umbrella Corp';
     return MaterialApp(
-      
       title: appTitle,
       home: Scaffold(
         appBar: AppBar(),
@@ -29,7 +27,3 @@ class AppSaude extends StatelessWidget {
     );
   }
 }
-
-
-
-

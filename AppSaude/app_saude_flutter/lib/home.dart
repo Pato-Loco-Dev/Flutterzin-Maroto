@@ -66,7 +66,7 @@ class Home extends StatelessWidget {
                           height: 200,
                         ),
                       ),
-                      body: const Historico(),
+                      body: Historico(),
                     );
                   },
                 ));
