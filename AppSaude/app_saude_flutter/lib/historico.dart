@@ -32,7 +32,7 @@ class _HistoricoState extends State<Historico> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Informações do Paciente'),
+          title: const Text('Informações do Paciente'),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
@@ -48,7 +48,7 @@ class _HistoricoState extends State<Historico> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text(
+              child: const Text(
                 'Fechar',
                 style: TextStyle(
                   color: Colors.black, // Definindo a cor do texto como branco
@@ -70,8 +70,8 @@ class _HistoricoState extends State<Historico> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(20.0),
+            const Padding(
+              padding:  EdgeInsets.all(20.0),
               child: Text(
                 'Histórico de Consultas',
                 style: TextStyle(
@@ -81,7 +81,7 @@ class _HistoricoState extends State<Historico> {
               ),
             ),
             DataTable(
-              columns: [
+              columns: const [
                 DataColumn(label: Text('ID')),
                 DataColumn(label: Text('Data')),
                 DataColumn(label: Text('Horário')),
@@ -95,7 +95,7 @@ class _HistoricoState extends State<Historico> {
                       DataCell(Text(consulta.horarioConsulta)),
                       DataCell(
                         IconButton(
-                          icon: Icon(Icons.person),
+                          icon: const Icon(Icons.person),
                           onPressed: () {
                             verDetalhesConsulta(consulta);
                           },
