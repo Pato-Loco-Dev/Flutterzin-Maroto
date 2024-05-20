@@ -1,23 +1,18 @@
-import 'package:app_saude_flutter/management.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'dart:async';
 import 'package:flutter/material.dart';
 
-const List<String> horarioManha = <String>[
-  '08:30',
-  '09:00',
-  '09:30',
-  '10:00',
-  '10:30',
-  '11:00',
-  '11:30'
-];
+const List<String> horarioManha = <String>['08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30'];
 
-class Consultas extends StatefulWidget {
+
+class Consultas extends StatefulWidget{
   @override
   ConsultasState createState() {
     return ConsultasState();
   }
 
-  const Consultas({super.key});
+  const Consultas ({super.key});
 }
 
 class ConsultasState extends State<Consultas> {
@@ -38,31 +33,69 @@ class ConsultasState extends State<Consultas> {
     nmPacienteController.dispose();
     dataController.dispose();
 
+    
     super.dispose();
   }
 
   Future<void> _selecionaData() async {
+
     DateTime? dataSelecionada = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2000),
-        lastDate: DateTime(2100));
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100)
+      );
 
     if (dataSelecionada != null) {
       setState(() {
         dataController.text = dataSelecionada.toString().split(" ")[0];
       });
     }
+
   }
 
+  Future<void> addConsulta() async {
+                          var url = Uri.parse('http://localhost:8080/consultas');
+                          var response = await http.post(url,
+                              headers: <String, String>{
+                               'Content-Type': 'application/json; charset=UTF-8',
+                                },
+                              body: jsonEncode(<String, String>{
+                              'motivoConsulta': motivoConsulta,
+                              'dataConsulta': dataConsulta,
+                              'horarioConsulta': dropdownValue,
+                              'codPaciente': nmPaciente
+                             }));
+                        }
+
   @override
-  Widget build(BuildContext context) {
-    return Form(
+  Widget build(BuildContext context){
+    
+    return  Form(
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget> [
+          Padding(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16.0),
+
+                  child: DropdownMenu<String>(
+                  width: 400,
+                  hintText: horarioManha.first,
+                  label: const Text('Horário da consulta:'),
+                  menuHeight: 300,
+                  initialSelection: horarioManha.first,
+                  onSelected: (String? value) {
+        
+                  setState(() {
+                      dropdownValue = value!;
+                      });
+                    },
+                  dropdownMenuEntries: horarioManha.map<DropdownMenuEntry<String>>((String value) {
+                    return DropdownMenuEntry<String>(value: value, label: value);
+                  }).toList(),
+                ),        
+               ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16.0),
             child: SizedBox(
@@ -119,24 +152,27 @@ class ConsultasState extends State<Consultas> {
                       border: OutlineInputBorder(),
                       prefixIcon: Icon(Icons.calendar_today),
                       focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue))),
-                  readOnly: true,
-                  onTap: () {
-                    _selecionaData();
-                  },
+                        borderSide: BorderSide(color: Colors.blue)
+                      )
+                    ),
+                    readOnly: true,
+                    onTap: (){
+                      _selecionaData();
+                    },
+                    
+                  ),
                 ),
-              ),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 16.0),
-              child: DropdownMenu<String>(
-                width: 400,
-                hintText: horarioManha.first,
-                label: const Text('Horário da consulta:'),
-                menuHeight: 300,
-                initialSelection: horarioManha.first,
-                onSelected: (String? value) {
+                ),
+          Padding(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16.0),
+
+                  child: DropdownMenu<String>(
+                  width: 400,
+                  hintText: horarioManha.first,
+                  label: const Text('Horário da consulta:'),
+                  menuHeight: 300,
+                  initialSelection: horarioManha.first,
+                  onSelected: (String? value) {
+        
                   setState(() {
                       dropdownValue = value!;
                       });
@@ -154,9 +190,7 @@ class ConsultasState extends State<Consultas> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        addConsulta(motivoConsulta, nmPaciente, dataConsulta, dropdownValue
-                        );
-                        
+                        addConsulta();
                         
                       } 
                     },
@@ -171,16 +205,19 @@ class ConsultasState extends State<Consultas> {
                 child: Center(
                   child: ElevatedButton(
                     onPressed: () {
-                     
+                      
                     },
                     style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 255, 0, 0)),
                     child: const Text('Ver consultas ', style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)) ),
                   ),
                 ),
               ),
+              
           
         ]
       ),
     );
   }
 }
+
+
