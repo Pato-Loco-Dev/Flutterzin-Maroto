@@ -9,6 +9,7 @@ const List<String> horarioManha = <String>['08:30', '09:00', '09:30', '10:00', '
 
 
 
+
 class Consultas extends StatefulWidget{
   @override
   ConsultasState createState() {
@@ -39,6 +40,8 @@ class ConsultasState extends State<Consultas> {
     
     super.dispose();
   }
+
+  
 
   Future<void> _selecionaData() async {
 
