@@ -82,7 +82,7 @@ class _HistoricoState extends State<Historico> {
             ),
             DataTable(
               columns: const [
-                DataColumn(label: Text('ID')),
+                DataColumn(label: Text('Motivo')),
                 DataColumn(label: Text('Data')),
                 DataColumn(label: Text('Horário')),
                 DataColumn(label: Text('Paciente')),
@@ -90,7 +90,7 @@ class _HistoricoState extends State<Historico> {
               rows: consultas
                   .map(
                     (consulta) => DataRow(cells: [
-                      DataCell(Text(consulta.id.toString())),
+                      DataCell(Text(consulta.motivo)),
                       DataCell(Text(consulta.dataConsulta)),
                       DataCell(Text(consulta.horarioConsulta)),
                       DataCell(

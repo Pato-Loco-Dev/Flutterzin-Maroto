@@ -1,11 +1,13 @@
 class Consulta {
   final int id;
+  final String motivo;
   final String dataConsulta;
   final String horarioConsulta;
   final Paciente paciente;
 
   Consulta({
     required this.id,
+    required this.motivo,
     required this.dataConsulta,
     required this.horarioConsulta,
     required this.paciente,
@@ -15,6 +17,7 @@ class Consulta {
     final consultaData = json['consulta'];
     return Consulta(
       id: consultaData['id'],
+      motivo: consultaData['motivoConsulta'],
       dataConsulta: consultaData['dataConsulta'],
       horarioConsulta: consultaData['horarioConsulta'],
       paciente: Paciente.fromJson(consultaData['paciente']),
