@@ -1,23 +1,24 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'package:app_saude_flutter/consultas.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'models.dart';
 
-Future<void> listarConsultas() async {
-  final response = await http.get(Uri.parse('http://localhost:8080/consultas'));
+abstract class ApiService {
+  static Future<List<Consulta>> listarConsultasAndPaciente() async {
+    final response =
+        await http.get(Uri.parse('http://localhost:8080/consultas'));
 
-  if (response.statusCode == 200) {
-    // Se a solicitação for bem-sucedida, analise os dados da resposta JSON.
-    print('Response: ${response.body}');
-
-    final Map<dynamic, dynamic> listaConsultas =
-        Map.castFrom(json.decode(response.body));
-
-    print(listaConsultas);
-  } else {
-    // Se a solicitação não for bem-sucedida, lide com o erro.
-    print('Failed to load data: ${response.statusCode}');
+    if (response.statusCode == 200) {
+      List<dynamic> jsonResponse = json.decode(response.body);
+      return jsonResponse
+          .map((consulta) => Consulta.fromJson(consulta))
+          .toList();
+    } else {
+      throw Exception('Failed to load data: ${response.statusCode}');
+    }
   }
 }
 
