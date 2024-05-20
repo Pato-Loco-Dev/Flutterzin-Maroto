@@ -26,7 +26,11 @@ Future<void> listarPacientes() async {
 
   if (response.statusCode == 200) {
     // Se a solicitação for bem-sucedida, analise os dados da resposta JSON.
-    print('Response: ${response.body}');
+    
+    List<dynamic> listaPacientes = jsonDecode(response.body);
+    print(listaPacientes);
+
+
   } else {
     // Se a solicitação não for bem-sucedida, lide com o erro.
     print('Failed to load data: ${response.statusCode}');

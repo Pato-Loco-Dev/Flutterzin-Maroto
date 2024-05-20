@@ -61,6 +61,25 @@ class ConsultasState extends State<Consultas> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget> [
+          Padding(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16.0),
+
+                  child: DropdownMenu<String>(
+                  width: 400,
+                  hintText: horarioManha.first,
+                  label: const Text('Horário da consulta:'),
+                  menuHeight: 300,
+                  initialSelection: horarioManha.first,
+                  onSelected: (String? value) {
+        
+                  setState(() {
+                      dropdownValue = value!;
+                      });
+                    },
+                  dropdownMenuEntries: horarioManha.map<DropdownMenuEntry<String>>((String value) {
+                    return DropdownMenuEntry<String>(value: value, label: value);
+                  }).toList(),
+                ),        
+               ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16.0),
             child: SizedBox(
@@ -176,6 +195,19 @@ class ConsultasState extends State<Consultas> {
                     },
                     style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 255, 0, 0)),
                     child: const Text('Ver consultas ', style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)) ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16.0),
+                child: Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      listarPacientes(); 
+                    },
+                    style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 255, 0, 0)),
+                    child: const Text('Ver pacientes ', style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)) ),
                   ),
                 ),
               ),

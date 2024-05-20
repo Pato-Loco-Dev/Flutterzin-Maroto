@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 class Perfil extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding:  EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(bottom: 20.0),
+                padding:  EdgeInsets.only(bottom: 20.0),
                 child: Text(
                   'Perfil do Médico',
                   style: TextStyle(
