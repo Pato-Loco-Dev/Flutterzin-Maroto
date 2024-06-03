@@ -11,6 +11,7 @@ class LogIn extends StatefulWidget {
 }
 
 class LogInState extends State<LogIn> {
+  bool senhaVisivel = true; 
   TextEditingController userController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -23,6 +24,12 @@ class LogInState extends State<LogIn> {
     userController.dispose();
     passwordController.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    senhaVisivel = true;
   }
 
   @override
@@ -57,6 +64,7 @@ class LogInState extends State<LogIn> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             child: TextFormField(
+              obscureText: senhaVisivel,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Digite sua senha!';
@@ -66,10 +74,16 @@ class LogInState extends State<LogIn> {
                 return null;
               },
               controller: passwordController,
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+              decoration:  InputDecoration(
+                  suffixIcon: IconButton(onPressed: () {
+                    setState(() {
+                      senhaVisivel =!senhaVisivel;
+                    });
+                  } , icon: Icon(senhaVisivel ? Icons.visibility : Icons.visibility_off)),
+                  border: const OutlineInputBorder(),
                   hintText: 'Digite sua Senha:',
-                  label: Text('Senha:')),
+                  label: const Text('Senha:')),
+                  
             ),
           ),
           Padding(
@@ -95,10 +109,10 @@ class LogInState extends State<LogIn> {
                   }
                 },
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
+                  backgroundColor: MaterialStateProperty.all<Color>(const
                       Color.fromRGBO(255, 0, 0, 1)),
                 ),
-                child: Text(
+                child: const Text(
                   'Entrar',
                   style: TextStyle(
                     color: Colors.white, // Definindo a cor do texto como branco

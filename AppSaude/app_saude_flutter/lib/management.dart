@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'dart:async';
-import 'models.dart';
+import 'models.dart'; 
 
 abstract class ApiService {
   static Future<List<Consulta>> listarConsultasAndPaciente() async {
@@ -17,25 +17,20 @@ abstract class ApiService {
       throw Exception('Failed to load data: ${response.statusCode}');
     }
   }
+
 }
 
-Future<void> listarPacientes() async {
+
+  Future<List<Paciente>> listarPacientes() async {
   final response = await http.get(Uri.parse('http://localhost:8080/pacientes'));
 
   if (response.statusCode == 200) {
-    // Se a solicitação for bem-sucedida, analise os dados da resposta JSON.
-    
-    List<dynamic> listaPacientes = jsonDecode(response.body);
-    print(listaPacientes);
-
-
+    List jsonResponse = json.decode(response.body);
+    return jsonResponse.map((paciente) => Paciente.fromJson(paciente)).toList();
   } else {
-    // Se a solicitação não for bem-sucedida, lide com o erro.
-    print('Failed to load data: ${response.statusCode}');
+    throw Exception('Failed to load pacientes');
   }
 }
-
-
 
 Future<void> atualizarConsulta(String motivoConsulta, String codPaciente,
     String dataConsulta, String dropdownValue) async {
@@ -57,10 +52,10 @@ Future<void> atualizarConsulta(String motivoConsulta, String codPaciente,
       }));
 
   if (response.statusCode >= 200 && response.statusCode <= 299) {
-    // Se a requisição for bem-sucedida, você pode processar a resposta aqui.
+    
     print('Response: ${response.body}');
   } else {
-    // Se a requisição não for bem-sucedida, lide com o erro aqui.
+    
     print(dataConsultaRequest);
   }
 }

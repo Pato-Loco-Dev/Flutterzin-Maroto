@@ -18,7 +18,7 @@ public record PacienteRequest(
 ) {
 
     public static PacienteCommand toCommand(PacienteRequest request) {
-        return new PacienteCommand(request.nome, request.dataNascimento, request.convenio, request.tipoSanguineo);
+        return new PacienteCommand(request.nome, request.dataNascimento, request.tipoSanguineo, request.convenio);
     }
 
 

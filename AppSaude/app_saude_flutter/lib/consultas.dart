@@ -3,10 +3,11 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'models.dart';
+import 'management.dart';
 
-const List<String> horarioManha = <String>['08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30'];
 
 
+final List<String> horarioManha = ['08:30', '09:00', '09:30', '10:00','10:30','11:00','11:30','','13:30','14:00','14:30','15:00','15:30', '16:00', '16:30','17:00'];
 
 
 
@@ -20,28 +21,51 @@ class Consultas extends StatefulWidget{
 }
 
 class ConsultasState extends State<Consultas> {
+  late Future<List<Paciente>> futurePacientes ;
+  Paciente? selectedPaciente;
+  String dataConsulta = '';
   TextEditingController dataController = TextEditingController();
   String dropdownValue = horarioManha.first;
   TextEditingController motivoConsController = TextEditingController();
   String motivoConsulta = '';
   String nmPaciente = '';
   TextEditingController nmPacienteController = TextEditingController();
-  String dataConsulta = '';
+  int codPaciente = 0;
+  
+
+   @override
+  void initState() {
+    super.initState();
+    futurePacientes = listarPacientes();
+  }
+
+  
 
   final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is disposed.
+
     motivoConsController.dispose();
     nmPacienteController.dispose();
     dataController.dispose();
-
-    
     super.dispose();
   }
 
-  
+
+  Future<void> addConsulta() async {
+                          var url = Uri.parse('http://localhost:8080/consultas');
+                          var response = await http.post(url,
+                              headers: <String, String>{
+                               'Content-Type': 'application/json; charset=UTF-8',
+                                },
+                              body: jsonEncode(<String, String>{
+                              'motivoConsulta': motivoConsulta,
+                              'dataConsulta': dataConsulta,
+                              'horarioConsulta': dropdownValue,
+                              'codPaciente': selectedPaciente!.id.toString()
+                             }));
+                        }
 
   Future<void> _selecionaData() async {
 
@@ -60,20 +84,6 @@ class ConsultasState extends State<Consultas> {
 
   }
 
-  Future<void> addConsulta() async {
-                          var url = Uri.parse('http://localhost:8080/consultas');
-                          var response = await http.post(url,
-                              headers: <String, String>{
-                               'Content-Type': 'application/json; charset=UTF-8',
-                                },
-                              body: jsonEncode(<String, String>{
-                              'motivoConsulta': motivoConsulta,
-                              'dataConsulta': dataConsulta,
-                              'horarioConsulta': dropdownValue,
-                              'codPaciente': nmPaciente
-                             }));
-                        }
-
   @override
   Widget build(BuildContext context){
     
@@ -83,45 +93,41 @@ class ConsultasState extends State<Consultas> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget> [
-          Padding(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16.0),
-
-                  child: DropdownMenu<String>(
-                  width: 400,
-                  hintText: horarioManha.first,
-                  label: const Text('Horário da consulta:'),
-                  menuHeight: 300,
-                  initialSelection: horarioManha.first,
-                  onSelected: (String? value) {
-        
-                  setState(() {
-                      dropdownValue = value!;
-                      });
-                    },
-                  dropdownMenuEntries: horarioManha.map<DropdownMenuEntry<String>>((String value) {
-                    return DropdownMenuEntry<String>(value: value, label: value);
-                  }).toList(),
-                ),        
-               ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16.0),
-            child: SizedBox(
-              child: TextFormField(
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                return 'Digite o nome do paciente!';
-                } else { nmPaciente = value;
-                }
-                return null;
-              },
-              controller: nmPacienteController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Digite o nome do paciente:',
-                label: Text('Nome do paciente:')
-            ),
+              child:  FutureBuilder<List<Paciente>>(
+          future: futurePacientes,
+          builder: (context, AsyncSnapshot<List<Paciente>> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            } else if (snapshot.hasError) {
+              return Text('Erro: ${snapshot.error}');
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return const Text('Nenhum paciente encontrado');
+            } else {
+              List<Paciente> pacientes = snapshot.data!;
+              return DropdownButton<Paciente>(
+                value: selectedPaciente,
+                hint: const Text('Selecione um Paciente'),
+                items: pacientes.map((Paciente paciente) {
+                  return DropdownMenuItem<Paciente>(
+                    value: paciente,
+                    child: Text(paciente.nome),
+                  );
+                }).toList(),
+                onChanged: (Paciente? newValue) {
+                  setState(() {
+                    selectedPaciente = newValue;
+                    
+                  });
+                },
+              );
+            }
+          },
+        ),     
           ),
-        ),
-          ),
+          
+          
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16.0),
             child: TextFormField(
@@ -205,21 +211,7 @@ class ConsultasState extends State<Consultas> {
                   ),
                 ),
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16.0),
-                child: Center(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      
-                    },
-                    style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 255, 0, 0)),
-                    child: const Text('Ver consultas ', style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)) ),
-                  ),
-                ),
-              ),
               
-          
         ]
       ),
     );

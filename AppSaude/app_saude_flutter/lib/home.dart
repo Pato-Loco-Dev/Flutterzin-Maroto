@@ -1,3 +1,4 @@
+import 'package:app_saude_flutter/cadastro_paciente.dart';
 import 'package:flutter/material.dart';
 import 'perfil.dart';
 import 'consultas.dart';
@@ -66,7 +67,7 @@ class Home extends StatelessWidget {
                           height: 200,
                         ),
                       ),
-                      body: Historico(),
+                      body:  Historico(),
                     );
                   },
                 ));
@@ -121,6 +122,44 @@ class Home extends StatelessWidget {
                   )),
                   const Center(
                     child: Text('Perfil'),
+                  )
+                ]),
+              ),
+            ),
+          ),
+        ),
+        Center(
+          child: Card(
+            clipBehavior: Clip.hardEdge,
+            child: InkWell(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute<void>(
+                  builder: (BuildContext context) {
+                    return Scaffold(
+                      appBar: AppBar(
+                        title: Image.asset(
+                          'assets/images/ubrela.png',
+                          width: 200,
+                          height: 200,
+                        ),
+                      ),
+                      body: const CadastroPacientes(),
+                    );
+                  },
+                ));
+              },
+              child: SizedBox(
+                width: 300,
+                height: 100,
+                child: Column(children: <Widget>[
+                  Center(
+                      child: Image.asset(
+                    'assets/images/paciente.png',
+                    width: 60,
+                    height: 60,
+                  )),
+                  const Center(
+                    child: Text('Cadastrar Paciente'),
                   )
                 ]),
               ),
